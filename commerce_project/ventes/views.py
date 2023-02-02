@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from ventes.models import Article, Shopper, CommandeBasket
+from ventes.models import Article, Shopper, CommandeBasket,Categorie
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from . import otherViews as ov
@@ -65,4 +65,22 @@ def note_article(request, id):
         shopper.setArticleNote(article, note)
     #return HttpResponse("Okay")
     return redirect(reverse('ventes:article', kwargs={"id": id}))
+
+def categorie(request):
+    if request.method == "POST":
+        wording_str = request.POST.get('wording')
+        categorie = Categorie(wording=wording_str)
+        categorie.save()
+        return redirect('ventes:index')
+    return render(request, 'userAccount/formulaireCategorie.html')
+
+
+
+
+
+
+
+
+
+
 

@@ -16,3 +16,14 @@ def liker(request, id):
         shopper.likePost(post)
         return JsonResponse({"result" : post.loveNumber==0})
     return JsonResponse({"result" : False})
+def post(request):
+    if request.method == "POST":
+        nom_str = request.POST.get('name')
+        description_str = request.POST.get('description')
+        love_str = request.POST.get('number')
+        media_str = request.POST.get('media')
+
+        post = Post(name=nom_str,description=description_str,media=media_str)#,loveNumber=love_str
+        post.save()
+        return redirect('ventes:index')
+    return render(request, 'formPost/formulairePost.html')
