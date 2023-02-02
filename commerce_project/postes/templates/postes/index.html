@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="" style="display: flex; flex-direction: column; align-items: center;">
+    {% if not postes %}
+        <h1>Aucun Poste n'a été publié.</h1>
+    {% else %}
+        <section>
+            {% for poste in postes %}
+                <div class="card" style="width: 408px; margin-bottom: 50px;">
+                    <div class="" style="background-color: white; padding: 10px;">
+                    <h4>{{ poste.name }}</h4>
+                    </div>
+                    <hr>
+                    <div class="post-content">
+                        {% if  poste.getMediaFormat == 'image' %}
+                            <img src="{{ poste.media.url }}" alt="{{ poste.media.url }}" sizes="470px">
+                        {% else %}
+                            <video controls width="250" style="border: solid 1px;">
+                                <source src="{{ poste.media.url }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                    </div>
+
+                    <hr>
+                    <div class="" style="background-color: white; padding: 20px;">
+                        <div class="like-share">
+                            <!--a href="{% url 'postes:liker' poste.id %}"-->
+                                {% if poste.loveNumber == 1 %}
+                                    <img id="like_{{poste.id}}" onclick="liked('{{ poste.id }}')" class="svg" src="/media/static/assets/icons/red-plain-heart.svg" alt="empty_heart">
+                                {% else %}
+                                    <img id="like_{{poste.id}}" onclick="liked('{{ poste.id }}')" class="svg" src="/media/static/assets/icons/empty_heart.svg" alt="empty_heart">
+                                {% endif %}
+                            <!--/a-->
+                            <img id="share" class="svg" src="/media/static/assets/icons/empty_send.svg" alt="empty_heart">
+                        </div>
+                        <div style="padding: 0px;">
+                            <h5 style="padding-top: 10px; padding-bottom: 10px">Description</h5>
+                            <p>
+                                {{ poste.description}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block scripts%}
+  <script>
+    /*let like = document.getElementById('like');
+    like.addEventListener('click', function(e){
+        icon1 = "red-plain-heart.svg";
+        icon2 = "empty_heart.svg";
+        this.src = permutIcon(this.src, icon1, icon2);
+    });*/
+
+    function permutIcon(src, icon1, icon2){
+        icon_name = src.split("/")[7];
+        if (icon_name == icon1){
+            return "/media/static/assets/icons/"+icon2;
+        } 
+        return "/media/static/assets/icons/"+icon1;
+    }
+    function liked(id){
+        $.ajax({
+            type: "POST",
+            url: `/postes/liker/${id}`,
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                data: "click"
+            },
+            success: function(reponse){
+                let svg = document.getElementById(`like_${id}`);
+                if (reponse.result){
+                    icon1 = "red-plain-heart.svg";
+                    icon2 = "empty_heart.svg";
+                    svg.src = permutIcon(svg.src, icon1, icon2);
+                } else {
+                    icon2 = "red-plain-heart.svg";
+                    icon1 = "empty_heart.svg";
+                    svg.src = permutIcon(svg.src, icon1, icon2);
+                }
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert("Erreur");
+            }
+        });
+    }
+
+  </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if commandLine %}
+<div>
+    <a href="{% url 'ventes:cart' %}">Voir le panier ({{ commandLine.commandebasket_set.count}})</a>
+</div>
+{% endif %}
+<div>
+{% for article in articles %}
+    <div>
+        <a href="{% url 'ventes:article' article.id %}">
+            <img src="{{ article.thumbnail.url }}" alt="{{ article.designation }}" style="max-width: 250px;">
+            <div>
+                <span>{{ article.designation}}</span>
+                <span>{{ article.stock }}</span>
+                <span>{{ article.note }}</span>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

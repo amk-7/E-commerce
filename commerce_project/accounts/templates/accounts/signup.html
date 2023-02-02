@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post" action="" class="flex flex-col items-center">
+{% csrf_token %}
+    <div class="flex flex-col">
+        <label for="">Nom</label>
+        <input class="border" type="text" name="first_name" id="first_name" value="KONDI">
+    </div>
+    <div class="flex flex-col">
+        <label for="last_name">Prenom</label>
+        <input class="border" type="text" name="last_name" id="last_name" value="abdoul malik">
+    </div>
+    <div class="flex flex-col">
+        <label for="username">Nom d'utilisateur</label>
+        <input class="border" type="text" name="username" id="username" value="2048">
+    </div>
+    <div class="flex flex-col">
+        <label for="email">email</label>
+        <input class="border" type="email" name="email" id="email" value="amk@gmail.com">
+    </div>
+    <div class="flex flex-col">
+        <label for="password">password</label>
+        <input class="border" type="password" name="password" id="password" value="123456789">
+    </div>
+    <div class="flex flex-col">
+        <label for="">Adresse</label>
+        <table>
+            <td>
+                <label for="ville">ville</label>
+                <input class="border" type="text" name="adresse[]" id="ville" value="sokodé">
+            </td>
+            <td>
+                <label for="quartier">Quartier</label>
+                <input class="border" type="text" name="adresse[]" id="quartier" value="komah">
+            </td>
+            <td>
+                <label for="lieu">Lieu de résidance</label>
+                <input class="border" type="text" name="adresse[]" id="lieu" value="rf">
+            </td>
+        </table>
+    </div>
+    <div class="flex flex-col">
+        <label for="contact">contact</label>
+        <input class="border" type="tel" name="contact" id="contact" value="93561240">
+    </div>
+    <input type="submit" value="s'inscrire" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+</form>
+
+{# Assumes you set up the password_reset view in your URLconf #}
+
+{% endblock %}
