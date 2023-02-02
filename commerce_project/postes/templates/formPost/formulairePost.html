@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="" method="POST">
+         {% csrf_token %}
+    <table border="0">
+         <td class="input-group mb-3">
+             <span class="input-group-text bg-secondary text-white" id="basic-addon3" color="blue">Nom</span>
+             <input type="text" name="name" placeholder="Enter Votre nom..." required="true">
+         </td>
+        <td class="input-group mb-3">
+             <span class="input-group-text bg-secondary text-white" id="basic-addon3" color="blue">Description</span>
+             <input type="textfied" name="description" placeholder="Enter Votre description..." required="true" >
+        </td>
+        <td class="input-group mb-3">
+             <span class="input-group-text bg-secondary text-white" id="basic-addon3" color="blue">Numero </span>
+             <input type="number" name="loveNumber" placeholder="..." required="true">
+        </td>
+        <td class="input-group mb-3">
+             <span class="input-group-text bg-secondary text-white" id="basic-addon3" color="blue">Media </span>
+             <input  type="file" id="file" multiple name="media" placeholder="..." required="true">
+        </td>
+        <td>
+            <button  type="submit">Valider</button>
+        </td>
+        </table>
+    </form>
+</body>
+</html>
